@@ -20,7 +20,7 @@ Url Shortener Using Slim php framework
        From the application root, php -S localhost:9000 -t src src/index.php
 
 ## Not Doing
-        - Urls aren't validated in terms of reachability
+        - Not validating Urls in terms of reachability or that there are indeed Urls
         
 ## Example Usage
          Shorten and save a Url (Create/Replace)
