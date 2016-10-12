@@ -19,10 +19,10 @@ Url Shortener Using Slim php framework
     Server
        From the application root, php -S localhost:9000 -t src src/index.php
 
- ##Not Doing
+## Not Doing
         - Urls aren't validated in terms of reachability
         
- ##Example Usage
+## Example Usage
          Shorten and save a Url (Create/Replace)
            PUT /api/urls/{urlEncodedTargetUrl} (/api/urls/https%3A%2F%2Fwww.facebook.com%2F) 
             Optional body: 
