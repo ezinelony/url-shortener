@@ -121,8 +121,9 @@ class UrlShortener  implements JsonSerializable
     private function validateRedirectTypes(string $redirects): bool {
         $decoded = json_decode($redirects, true);
 
-        if(json_last_error())
+        if(json_last_error() || !is_array($decoded))
             throw new InvalidArgumentException("Only json is accepted ".json_last_error_msg());
+
 
         foreach ($decoded as $key => $target){
             if(!(is_string($key) && is_string($target))){

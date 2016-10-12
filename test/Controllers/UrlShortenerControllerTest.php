@@ -23,6 +23,7 @@ class UrlShortenerControllerTest extends TestCase
     private $store;
     private $request;
     private $response;
+
     protected function setUp()
     {
         $this->container = $this->createMock(ContainerInterface::class);
@@ -150,4 +151,100 @@ class UrlShortenerControllerTest extends TestCase
         $this->assertEquals($response->getStatusCode(), 200);
     }
 
+
+
+    public function testSaveCallsStoreUpdateWhenShortenedUrlIsFound() {
+
+        $model = $this->dataProvider->provideEntity();
+        $devices =["devices" => ["iphone" => "www.testing.com"]];
+        $devicesJson = json_encode($devices["devices"]);
+
+        $model->setRedirectsJson($devicesJson);
+
+        $this->request
+            ->method("getParsedBody")
+            ->willReturn($devices);
+
+        $this->store
+            ->method("findById")
+            ->with($model->getId())
+            ->willReturn($model);
+
+        $this->container->expects($this->once())
+            ->method('get')
+            ->willReturn($this->store);
+
+        $this->store->expects($this->once())
+            ->method('update')
+            ->with($model)
+            ->willReturn(1);
+
+        $controller = new UrlShortenerController($this->container);
+        $args = ["originalUrl" => $model->getId()];
+
+        $response = $controller->save($this->request, $this->response, $args);
+
+        $this->assertEquals($response->getStatusCode(), 204);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSaveThrowsInvalidArgumentExceptionWhenDevicesIsNotInAcceptableJsonFormat() {
+
+        $model = $this->dataProvider->provideEntity();
+
+        $this->request
+            ->method("getParsedBody")
+            ->willReturn(["devices" => "wrong"]);
+
+        $this->store
+            ->method("findById")
+            ->with($model->getId())
+            ->willReturn($model);
+
+        $this->container->expects($this->once())
+            ->method('get')
+            ->willReturn($this->store);
+
+        $this->store->expects($this->never())
+            ->method('update')
+            ->with($model);
+
+        $controller = new UrlShortenerController($this->container);
+        $args = ["originalUrl" => $model->getId()];
+
+        $controller->save($this->request, $this->response, $args);
+    }
+
+
+    public function testSaveCallsStoreCreateWhenShortenedUrlIsNotFound() {
+
+        $model = $this->dataProvider->provideEntity();
+        $devices =["devices" => ["iphone" => "www.testing.com"]];
+
+        $this->request
+            ->method("getParsedBody")
+            ->willReturn($devices);
+
+        $this->store
+            ->method("findById")
+            ->with($model->getId())
+            ->will($this->throwException(new NotFoundException()));
+
+        $this->container->expects($this->once())
+            ->method('get')
+            ->willReturn($this->store);
+
+        $this->store->expects($this->once())
+            ->method('create')
+            ->willReturn(1);
+
+        $controller = new UrlShortenerController($this->container);
+        $args = ["originalUrl" => $model->getId()];
+
+        $response = $controller->save($this->request, $this->response, $args);
+
+        $this->assertEquals($response->getStatusCode(), 201);
+    }
 }
