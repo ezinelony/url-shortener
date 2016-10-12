@@ -18,7 +18,6 @@ class UrlRedirectorController
      */
     private $store;
     private $deviceDetector;
-    const ALLOWED_TRIALS = 5;
 
     /**
      * UrlDirectorController constructor.
@@ -34,8 +33,6 @@ class UrlRedirectorController
         $e = $this->store->findByShortenedUrl($args["shortenedUrl"]);
         $target = trim(strtolower($this->getTarget($e)));
         $target = substr($target, 0, 4) == "http" ? $target : "http://".$target;
-
-
         return $response->withRedirect($target, 303);
 
     }
@@ -53,12 +50,9 @@ class UrlRedirectorController
                 $this->searchTarget($devices, "mobile");
         }
 
-        if(!$target && $t->isMobile()){
-            $target = $this->searchTarget($devices, "mobile");
-        }
+        if(!$target && $t->isMobile()){$target = $this->searchTarget($devices, "mobile");}
 
         return $target ?: $model->getId();
-
     }
 
     private function searchTarget(array  $targets, string $type) :string {
@@ -68,9 +62,7 @@ class UrlRedirectorController
         foreach ($targets as $deviceType => $target){
             if(strpos(strtolower($deviceType), $type) != false ||
                 $this->deviceDetector->is(strtolower($deviceType))
-            ){
-                return $target;
-            }
+            ){ return $target; }
         }
 
         return null;
