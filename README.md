@@ -7,12 +7,12 @@ Url Shortener Using Slim php framework
  * Composer 
  
 ## Running
-   ######Dependencies
+   ###### Dependencies
        From the application root, run composer install  
-   ######Migration
+   ###### Migration
         From the application root, run ./config/migations/migrate.sh
 
-   ######Server
+   ###### Server
        From the application root, php -S localhost:9000 -t src src/index.php
 
         
