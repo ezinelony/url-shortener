@@ -33,7 +33,7 @@ class UrlShortenerController
             if($trials < self::ALLOWED_TRIALS){
                 $trials += 1;
                 $keyLength += 1;
-                $model->setShortenedUrl( \UrlShortener\key($keyLength));
+                $model->setShortenedUrl(\UrlShortener\key($keyLength));
                 return $this->create($model, $trials, $keyLength);
             }
             throw $e;
@@ -73,7 +73,7 @@ class UrlShortenerController
     }
 
     //Pagination will be nice
-    public function findAll(Request $request, Response $response, array $args) :Response {
+    public function findAll(Request $request, Response $response) :Response {
         $e = $this->store->findAll();
         $response->withJson($e);
         return $response;

@@ -122,7 +122,7 @@ class UrlShortener  implements JsonSerializable
         $decoded = json_decode($redirects, true);
 
         if(json_last_error())
-            throw new InvalidArgumentException("Only json ia accepted ".json_last_error_msg());
+            throw new InvalidArgumentException("Only json is accepted ".json_last_error_msg());
 
         foreach ($decoded as $key => $target){
             if(!(is_string($key) && is_string($target))){
