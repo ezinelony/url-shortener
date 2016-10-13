@@ -12,7 +12,7 @@ Url Shortener Using Slim php framework
  
 ## Running
     Dependencies 
-       From the application root, run composer install  
+       From the application root, run composer install
 
     Migration
         From the application root, run ./config/migations/migrate.sh
@@ -20,7 +20,7 @@ Url Shortener Using Slim php framework
     Server
        From the application root, run php -S localhost:9000 -t src src/index.php
 
-    Unit Tests Onyly
+    Unit Tests Only
        From the application root, run ./vendor/bin/phpunit --colors ./test
 
     Integrated Tests Only
