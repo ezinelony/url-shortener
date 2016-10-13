@@ -13,12 +13,23 @@ Url Shortener Using Slim php framework
 ## Running
     Dependencies 
        From the application root, run composer install  
+
     Migration
         From the application root, run ./config/migations/migrate.sh
 
     Server
-       From the application root, php -S localhost:9000 -t src src/index.php
+       From the application root, run php -S localhost:9000 -t src src/index.php
 
+    Unit Tests Onyly
+       From the application root, run ./vendor/bin/phpunit --colors ./test
+
+    Integrated Tests Only
+       From application root cd test/Integration, then run ./../../vendor/bin/behat 
+    
+    Unit and Integrated tests together
+       From application root, run ./run-tests.sh 
+        
+    
 ## Not Doing
         - Not validating Urls in terms of reachability or that there are indeed Urls
         

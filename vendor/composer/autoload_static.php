@@ -4,9 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitafaa33695f1b72784cca081479264bff
+class ComposerStaticInit991ba0e34b70b471f3f77f8d95ac9192
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         'd4a68a6be06efbd661a5ae5968e4a57b' => __DIR__ . '/../..' . '/src/functions.php',
     );
@@ -27,16 +31,36 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\DomCrawler\\' => 29,
+            'Symfony\\Component\\DependencyInjection\\' => 38,
+            'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\CssSelector\\' => 30,
+            'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\ClassLoader\\' => 30,
+            'Symfony\\Component\\BrowserKit\\' => 29,
             'Slim\\' => 5,
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
         ),
         'I' => 
         array (
             'Interop\\Container\\' => 18,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+            'Goutte\\' => 7,
         ),
         'F' => 
         array (
@@ -46,6 +70,11 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
+        ),
+        'B' => 
+        array (
+            'Behat\\Mink\\Driver\\' => 18,
+            'Behat\\Mink\\' => 11,
         ),
     );
 
@@ -62,19 +91,71 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
         ),
         'UrlShortener\\Test\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/test',
+            0 => __DIR__ . '/../..' . '/test/Unit',
         ),
         'UrlShortener\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Symfony\\Component\\DomCrawler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+        ),
+        'Symfony\\Component\\DependencyInjection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dependency-injection',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
+        'Symfony\\Component\\CssSelector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/css-selector',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Symfony\\Component\\ClassLoader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/class-loader',
+        ),
+        'Symfony\\Component\\BrowserKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/browser-kit',
+        ),
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -83,6 +164,22 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Goutte\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fabpot/goutte/Goutte',
         ),
         'FastRoute\\' => 
         array (
@@ -95,6 +192,15 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Behat\\Mink\\Driver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/mink-browserkit-driver/src',
+            1 => __DIR__ . '/..' . '/behat/mink-goutte-driver/src',
+        ),
+        'Behat\\Mink\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/mink/src',
         ),
     );
 
@@ -115,6 +221,29 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
             'Detection' => 
             array (
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',
+            ),
+        ),
+        'B' => 
+        array (
+            'Behat\\Transliterator' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/transliterator/src',
+            ),
+            'Behat\\Testwork' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/behat/src',
+            ),
+            'Behat\\MinkExtension' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/mink-extension/src',
+            ),
+            'Behat\\Gherkin' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/gherkin/src',
+            ),
+            'Behat\\Behat' => 
+            array (
+                0 => __DIR__ . '/..' . '/behat/behat/src',
             ),
         ),
     );
@@ -579,10 +708,10 @@ class ComposerStaticInitafaa33695f1b72784cca081479264bff
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitafaa33695f1b72784cca081479264bff::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitafaa33695f1b72784cca081479264bff::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitafaa33695f1b72784cca081479264bff::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitafaa33695f1b72784cca081479264bff::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit991ba0e34b70b471f3f77f8d95ac9192::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit991ba0e34b70b471f3f77f8d95ac9192::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit991ba0e34b70b471f3f77f8d95ac9192::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit991ba0e34b70b471f3f77f8d95ac9192::$classMap;
 
         }, null, ClassLoader::class);
     }

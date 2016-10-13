@@ -9,14 +9,13 @@ use Slim\App;
 use \Slim\Http\Request;
 use \Slim\Http\Response;
 use \UrlShortener\Exceptions\NotFoundException;
-
+use \GuzzleHttp\ClientInterface;
 
 
 defined('__DIR__') or define('__DIR__', dirname(__FILE__));
 define('DOCUMENT_ROOT', __DIR__);
 
 require DOCUMENT_ROOT.'/../vendor/autoload.php';
-
 
 $ENV_DATABASE_FILE = getenv('ENV_DATABASE_FILE') ?: DOCUMENT_ROOT.'/../config/data/database.db';
 $SERVICE_ADDRESS = (isset($_SERVER['HTTPS']) ? "https://":"http://").$_SERVER['HTTP_HOST'];
@@ -25,18 +24,17 @@ $SERVICE_ADDRESS = (isset($_SERVER['HTTPS']) ? "https://":"http://").$_SERVER['H
 $container = new Container();
 
 //ExceptionMapper
-
 $container['errorHandler'] = function ($container) {
     return function (Request $request, Response $response, Exception $exception) use ($container) {
         if($exception instanceof  NotFoundException){
-            return $container['response']->withStatus(404)
+            return $response->withStatus(404)
                 ->withJson(["errors" => [$exception->getMessage()]]);
         }
         if($exception instanceof  InvalidArgumentException){
-            return $container['response']->withStatus(400)
+            return $response->withStatus(400)
                 ->withJson(["errors" => [$exception->getMessage()]]);
         }
-        return $container['response']->withStatus(500)
+        return $response->withStatus(500)
             ->withJson( ["errors" =>  [$exception->getMessage()]]);
 
     };
@@ -51,10 +49,15 @@ $container[Mobile_Detect::class] =  function ($c) {
     return new Mobile_Detect;
 };
 
+$container[ClientInterface::class] =  function ($c) {
+    return new \GuzzleHttp\Client([]);
+};
+
 $app = new App($container);
+
 $app->add(function($request, $response, $next) {
     $response = $next($request, $response);
-    return $response->withHeader('Content-Type', 'application/json');
+    return $response->withHeader('Content-Type', 'application/json;charset=utf-8');
 });
 
 $app->put('/api/urls/{originalUrl}', '\UrlShortener\Controllers\UrlShortenerController:save');

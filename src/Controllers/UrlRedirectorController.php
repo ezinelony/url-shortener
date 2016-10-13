@@ -4,6 +4,8 @@
 namespace UrlShortener\Controllers;
 
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -18,7 +20,7 @@ class UrlRedirectorController
      */
     private $store;
     private $deviceDetector;
-
+    private $httpClient;
     /**
      * UrlDirectorController constructor.
      * @param ContainerInterface $ci
@@ -27,13 +29,20 @@ class UrlRedirectorController
     {
         $this->store = $ci->get(UrlShortenerDao::class);
         $this->deviceDetector = $ci->get(Mobile_Detect::class);
+        $this->httpClient = $ci->get(ClientInterface::class);
     }
 
     public function forward(Request $request, Response $response, array $args) :Response {
         $e = $this->store->findByShortenedUrl($args["shortenedUrl"]);
         $target = trim(strtolower($this->getTarget($e)));
         $target = substr($target, 0, 4) == "http" ? $target : "http://".$target;
-        return $response->withRedirect($target, 303);
+
+        try {
+            $this->httpClient->request($request->getMethod(), $target, $options = ['allow_redirects' => true]);
+        } catch (\Exception $exception){
+            return $response->withStatus(504);
+        }
+        return $response->withRedirect($target);
 
     }
 
