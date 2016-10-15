@@ -32,6 +32,7 @@ Url Shortener Using Slim php framework
     
 ## Not Doing
         - Not validating Urls in terms of reachability or that there are indeed Urls
+        - Not forwarding payload/request body
         
 ## Example Usage
          Shorten and save a Url (Create/Replace)
