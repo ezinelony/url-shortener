@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
 use Slim\Http\Request;
+use Slim\Http\RequestBody;
 use Slim\Http\Response;
 use UrlShortener\Dal\UrlShortenerDao;
 use \Mobile_Detect;
@@ -33,15 +34,27 @@ class UrlRedirectorController
     }
 
     public function forward(Request $request, Response $response, array $args) :Response {
+        $queryStringArray = $request->getQueryParams();
         $e = $this->store->findByShortenedUrl($args["shortenedUrl"]);
         $target = trim(strtolower($this->getTarget($e)));
         $target = substr($target, 0, 4) == "http" ? $target : "http://".$target;
+        if(!empty($queryStringArray)){
+            $qs = http_build_query($queryStringArray);
+            $target .= (strpos($target, '?') ? '&' : '?').$qs;
+        }
 
         try {
             $this->httpClient->request($request->getMethod(), $target, $options = ['allow_redirects' => true]);
         } catch (\Exception $exception){
             return $response->withStatus(504);
         }
+        $requestBody = $request->getBody();
+        if($requestBody) {
+            $rqB = new RequestBody();
+            $rqB->write($requestBody);
+            $response =  $response->withBody($rqB);
+        }
+
         return $response->withRedirect($target);
 
     }

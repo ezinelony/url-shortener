@@ -4,7 +4,7 @@ Feature: Url Shortened Visitor
   I need to be able to be redirected to url target when I visit the shortened url
 
   Scenario: Visit Shortened url from a desktop
-    When I send a "GET" request to "aaaaaa" with userAgent "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+    When I send a "GET" request to "aaaaaa?q=nelson" with userAgent "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
     Then I should be redirected to "http://bbc.com"
 
   Scenario: Visit Shortened url from a mobile that has mobile device configured

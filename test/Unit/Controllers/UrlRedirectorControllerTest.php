@@ -72,6 +72,95 @@ class UrlRedirectorControllerTest extends TestCase
         );
     }
 
+
+    public function testForwardRedirectsToTargetUrlWithQueryStringWhenShortenedUrlIsFound() {
+
+        $model = $this->dataProvider->provideEntity();
+        $this->store
+            ->method("findByShortenedUrl")
+            ->with("random")
+            ->willReturn($model);
+
+        $map = [
+            [Mobile_Detect::class, $this->deviceDetector],
+            [UrlShortenerDao::class,  $this->store],
+            [ClientInterface::class,  $this->httpClient]
+        ];
+
+        $this->container->expects($this->exactly(3))
+            ->method('get')
+            ->will($this->returnValueMap($map));
+
+        $controller = new UrlRedirectorController($this->container);
+
+        $this->request
+            ->method("getHeader")
+            ->with("User-Agent")
+            ->willReturn([
+                'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+            ]);
+
+        $this->request
+            ->method("getQueryParams")
+            ->willReturn(["qs" => "testing..."]);
+
+        $args = ["shortenedUrl" => "random"];
+
+        $response = $controller->forward($this->request, $this->response, $args);
+
+        $this->assertEquals(
+            $response->getHeader("Location")[0],
+            $model->getId().'?qs=testing...'
+        );
+    }
+
+    public function testForwardRedirectsToTargetUrlWithRequestBodyWhenShortenedUrlIsFound() {
+
+        $model = $this->dataProvider->provideEntity();
+        $this->store
+            ->method("findByShortenedUrl")
+            ->with("random")
+            ->willReturn($model);
+
+        $map = [
+            [Mobile_Detect::class, $this->deviceDetector],
+            [UrlShortenerDao::class,  $this->store],
+            [ClientInterface::class,  $this->httpClient]
+        ];
+
+        $this->container->expects($this->exactly(3))
+            ->method('get')
+            ->will($this->returnValueMap($map));
+
+        $controller = new UrlRedirectorController($this->container);
+
+        $this->request
+            ->method("getHeader")
+            ->with("User-Agent")
+            ->willReturn([
+                'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+            ]);
+
+        $this->request
+            ->method("getBody")
+            ->willReturn("{\"qs\":\"testing\"}");
+
+        $args = ["shortenedUrl" => "random"];
+
+        $response = $controller->forward($this->request, $this->response, $args);
+
+        $this->assertEquals(
+            $response->getHeader("Location")[0],
+            $model->getId()
+        );
+
+        $this->assertEquals(
+            (string)$response->getBody(),
+            '{"qs":"testing"}'
+        );
+    }
+
+
     /**
      * @expectedException \UrlShortener\Exceptions\NotFoundException
      */
